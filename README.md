@@ -58,13 +58,75 @@ DB_USERNAME=root
 DB_PASSWORD=root
 ```
 
-## Creazione di una Migration
+## Creazione e modifiche di una Migration
 
-Per creare una tabella lanciare il comando
+- Per creare una tabella lanciare il comando
 
+  ```
+  php artisan make:migration create_names_table
+  ```
+- Per tornare dientro di un batch
+
+  ```
+  php artisan migrate:rollback
+  ```
+- Per reset di tutto il database
+
+  ```
+  php artisan migrate:reset 
+  ```
+- Per reset di tutto il database
+
+  ```
+  php artisan migrate:reset 
+  ```
+
+- Per modificare una tabella lanciare il comando
+
+  ```
+  crea migrazione:
+  - php artisan make:migration 
+    - add_nameOfColumn_to_namesOfTable_table 
+    - update_namesOfTable_table --table=namesOfTable
+
+  ```
+```php
+// edit a table
+
+//add column
+public function up()
+  {
+    Schema::table('houses', function (Blueprint $table) {
+      $table->text('description')->after('nome della prima');
+    });
+  }
+
+public function down()
+  {
+    Schema::table('houses', function (Blueprint $table) {
+      $table->dropColumn('description');
+    });
+  }
+
+//edit column
+public function up()
+  {
+    Schema::table('houses', function (Blueprint $table) {
+      $table->text('description')->change();
+    });
+  }
+
+public function down()
+  {
+    Schema::table('houses', function (Blueprint $table) {
+      $table->valori prima della modifica ->change();
+    });
+  }
+ 
+ 
 ```
-php artisan make:migration create_houses_table
-```
+
+
 
 Aggiungi poi tutte le colonne che rappresentano la tabella nella funzione `up()`. I tipi di dato disponibili sono [qui](https://laravel.com/docs/9.x/migrations#available-column-types)
 
